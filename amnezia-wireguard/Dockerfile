@@ -13,10 +13,11 @@ SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 # Setup base
 # hadolint ignore=DL3003
 RUN apk update
-RUN set -ex && ping -c 4 google.com
 RUN set -ex && \
+    echo "https://dl-cdn.alpinelinux.org/alpine/latest-stable/main" > /etc/apk/repositories && \
+    echo "https://dl-cdn.alpinelinux.org/alpine/latest-stable/community" >> /etc/apk/repositories && \
     apk update && \
-    apk add --no-cache build-base linux-headers git || \
+    apk add --no-cache alpine-sdk linux-headers git || \
     (echo "Ошибка: не удалось установить пакеты" >&2 && exit 1)
 # RUN \
 #     apk add --no-cache --virtual .build-dependencies \

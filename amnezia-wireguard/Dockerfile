@@ -16,15 +16,15 @@ RUN \
     apk add --no-cache --virtual .build-dependencies \
         build-base \
         linux-headers \
-        git \
-    \
-    && apk add --no-cache \
+        git
+RUN \
+    apk add --no-cache \
         go \
         iptables \
         libqrencode-tools \
-        openresolv \
-    \
-    && ln -sf /sbin/xtables-nft-multi /sbin/ip6tables \
+        openresolv
+RUN \
+    ln -sf /sbin/xtables-nft-multi /sbin/ip6tables \
     && ln -sf /sbin/xtables-nft-multi /sbin/iptables \
     && git clone --depth=1 --branch $AWG_TOOLS \
         "https://github.com/amnezia-vpn/amneziawg-tools.git" /tmp/wg-tools \

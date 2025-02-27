@@ -13,6 +13,7 @@ SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 # Setup base
 # hadolint ignore=DL3003
 RUN apk update
+RUN set -ex && ping -c 4 google.com
 RUN set -ex && \
     apk update && \
     apk add --no-cache --virtual .build-dependencies \

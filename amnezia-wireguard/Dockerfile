@@ -1,4 +1,4 @@
-ARG BUILD_FROM=ghcr.io/hassio-addons/base:16.3.6
+ARG BUILD_FROM=ghcr.io/hassio-addons/base:17.2.1
 # hadolint ignore=DL3006
 FROM ${BUILD_FROM}
 
@@ -15,14 +15,14 @@ SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 RUN \
     apk add --no-cache --virtual .build-dependencies \
         build-base=0.5-r3 \
-        linux-headers \
-        git=2.45.2-r0 \
+        linux-headers=6.6-r1 \
+        git=2.47.2-r0 \
     \
     && apk add --no-cache \
-        go=1.22.10-r0 \
-        iptables=1.8.10-r3 \
+        go=1.23.6-r0 \
+        iptables=1.8.11-r1 \
         libqrencode-tools=4.1.1-r2 \
-        openresolv=3.13.2-r0 \
+        openresolv=3.13.2-r1 \
     \
     && ln -sf /sbin/xtables-nft-multi /sbin/ip6tables \
     && ln -sf /sbin/xtables-nft-multi /sbin/iptables \
@@ -31,6 +31,7 @@ RUN \
     && cd /tmp/wg-tools/src \
     && make \
     && make install \
+    \
     && git clone --depth=1 --branch $AWG_GO\
         "https://github.com/amnezia-vpn/amneziawg-go.git" /tmp/wireguard \
     \
@@ -62,7 +63,7 @@ LABEL \
     io.hass.arch="${BUILD_ARCH}" \
     io.hass.type="addon" \
     io.hass.version=${BUILD_VERSION} \
-    maintainer="Franck Nijhof <frenck@addons.community>" \
+    maintainer="fork Franck Nijhof <frenck@addons.community>" \
     org.opencontainers.image.title="${BUILD_NAME}" \
     org.opencontainers.image.description="${BUILD_DESCRIPTION}" \
     org.opencontainers.image.vendor="Home Assistant Community Add-ons" \

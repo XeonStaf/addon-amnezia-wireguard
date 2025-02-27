@@ -13,11 +13,17 @@ SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 # Setup base
 # hadolint ignore=DL3003
 RUN apk update
-RUN \
+RUN set -ex && \
+    apk update && \
     apk add --no-cache --virtual .build-dependencies \
         build-base \
         linux-headers \
-        git
+        git || (apk fix && apk add --no-cache build-base linux-headers git)
+# RUN \
+#     apk add --no-cache --virtual .build-dependencies \
+#         build-base \
+#         linux-headers \
+#         git
 RUN \
     apk add --no-cache \
         go \

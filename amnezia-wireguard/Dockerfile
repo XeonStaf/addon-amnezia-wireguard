@@ -12,23 +12,23 @@ SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 
 # Setup base
 # hadolint ignore=DL3003
-RUN echo "nameserver 8.8.8.8" > /etc/resolv.conf
-RUN apk add --no-cache ca-certificates && update-ca-certificates
-RUN set -ex && \
-    ping -c 4 google.com && \
-    apk update && \
-    apk add --no-cache alpine-sdk linux-headers git
+# RUN echo "nameserver 8.8.8.8" > /etc/resolv.conf
+# RUN apk add --no-cache ca-certificates && update-ca-certificates
+# RUN set -ex && \
+#     ping -c 4 google.com && \
+#     apk update && \
+#     apk add --no-cache alpine-sdk linux-headers git
 # RUN set -ex && \
 #     echo "https://dl-cdn.alpinelinux.org/alpine/latest-stable/main" > /etc/apk/repositories && \
 #     echo "https://dl-cdn.alpinelinux.org/alpine/latest-stable/community" >> /etc/apk/repositories && \
 #     apk update && \
 #     apk add --no-cache alpine-sdk linux-headers git || \
 #     (echo "Ошибка: не удалось установить пакеты" >&2 && exit 1)
-# RUN \
-#     apk add --no-cache --virtual .build-dependencies \
-#         build-base \
-#         linux-headers \
-#         git
+RUN \
+    apk add --no-cache --virtual .build-dependencies \
+        build-base \
+        linux-headers \
+        git
 RUN \
     apk add --no-cache \
         go \
@@ -42,9 +42,9 @@ RUN \
         "https://github.com/amnezia-vpn/amneziawg-tools.git" /tmp/wg-tools \
     && cd /tmp/wg-tools/src \
     && make \
-    && make install \
-    \
-    && git clone --depth=1 --branch $AWG_GO\
+    && make install
+RUN \
+    git clone --depth=1 --branch $AWG_GO\
         "https://github.com/amnezia-vpn/amneziawg-go.git" /tmp/wireguard \
     \
     && cd /tmp/wireguard \

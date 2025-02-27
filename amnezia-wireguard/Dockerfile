@@ -16,10 +16,8 @@ RUN apk update
 RUN set -ex && ping -c 4 google.com
 RUN set -ex && \
     apk update && \
-    apk add --no-cache --virtual .build-dependencies \
-        build-base \
-        linux-headers \
-        git || (apk fix && apk add --no-cache build-base linux-headers git)
+    apk add --no-cache build-base linux-headers git || \
+    (echo "Ошибка: не удалось установить пакеты" >&2 && exit 1)
 # RUN \
 #     apk add --no-cache --virtual .build-dependencies \
 #         build-base \

@@ -46,7 +46,10 @@ RUN git clone --depth=1 --branch $AWG_GO \
 COPY rootfs/ /
 
 RUN chmod 0755 /usr/bin/awg-quick \
- && sed -i 's/\r$//' /usr/bin/awg-quick
+ && sed -i 's/\r$//' /usr/bin/awg-quick \
+ && sed -i 's/^sysctl -q net\.ipv4\.conf\.all\.src_valid_mark=1/sysctl -q net.ipv4.conf.all.src_valid_mark=1 || true/' /usr/bin/awg-quick \
+ && sed -i 's/^iptables-restore -n/true \# iptables-restore disabled/' /usr/bin/awg-quick
+ 
 RUN apk add --no-cache bash
 
 # Build args

@@ -45,6 +45,8 @@ RUN git clone --depth=1 --branch $AWG_GO \
 # Копируем rootfs аддона
 COPY rootfs/ /
 
+RUN chmod 0755 /usr/bin/awg-quick \
+ && sed -i 's/\r$//' /usr/bin/awg-quick
 
 # Build args
 ARG BUILD_ARCH

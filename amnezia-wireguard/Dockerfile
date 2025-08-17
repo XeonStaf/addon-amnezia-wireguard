@@ -34,7 +34,8 @@ RUN \
         go \
         iptables \
         libqrencode-tools \
-        openresolv
+        openresolv \
+        iproute2
 RUN \
     ln -sf /sbin/xtables-nft-multi /sbin/ip6tables \
     && ln -sf /sbin/xtables-nft-multi /sbin/iptables \

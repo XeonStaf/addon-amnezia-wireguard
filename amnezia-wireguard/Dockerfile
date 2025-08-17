@@ -43,7 +43,8 @@ RUN git clone --depth=1 --branch $AWG_GO \
   && apk del --no-cache --purge .build-dependencies go
 
 # Копируем rootfs аддона
-COPY rootfs /
+COPY rootfs/ /
+
 
 # Build args
 ARG BUILD_ARCH

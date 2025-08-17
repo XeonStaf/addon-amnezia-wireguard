@@ -203,7 +203,7 @@ remove_firewall() {
 				[[ $line == "-A"* ]] && found=1
 				printf -v restore '%s%s\n' "$restore" "${line/#-A/-D}"
 			done < <($iptables-save 2>/dev/null)
-			[[ $found -ne 1 ]] || echo -n "$restore" | cmd $iptables-restore -n
+			[[ $found -ne 1 ]] || echo -n "$restore"
 		done
 	fi
 }
@@ -241,7 +241,7 @@ add_default() {
 	if type -p nft >/dev/null; then
 		cmd nft -f <(echo -n "$nftcmd")
 	else
-		echo -n "$restore" | cmd $iptables-restore -n
+		echo -n "$restore" 
 	fi
 	HAVE_SET_FIREWALL=1
 	return 0

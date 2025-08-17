@@ -47,6 +47,7 @@ COPY rootfs/ /
 
 RUN chmod 0755 /usr/bin/awg-quick \
  && sed -i 's/\r$//' /usr/bin/awg-quick
+RUN apk add --no-cache bash
 
 # Build args
 ARG BUILD_ARCH

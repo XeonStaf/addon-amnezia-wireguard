@@ -21,6 +21,7 @@ ports_description:
 hassio_api: true
 privileged:
   - NET_ADMIN
+  - SYS_ADMIN
 devices:
   - /dev/net/tun
 map:

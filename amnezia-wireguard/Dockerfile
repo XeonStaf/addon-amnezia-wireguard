@@ -34,9 +34,12 @@ RUN \
         go \
         iptables \
         libqrencode-tools \
-        openresolv \
-        iproute2 \
-    && ln -sf /usr/sbin/ip /sbin/ip || true
+        openresolv 
+
+RUN apk add --no-cache iproute2 \
+ && ( [ -x /sbin/ip ] && ln -sf /sbin/ip /usr/bin/ip || true ) \
+ && ( [ -x /usr/sbin/ip ] && ln -sf /usr/sbin/ip /usr/bin/ip || true )
+
     
 RUN \
     ln -sf /sbin/xtables-nft-multi /sbin/ip6tables \

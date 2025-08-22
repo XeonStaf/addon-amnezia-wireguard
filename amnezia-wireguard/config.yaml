@@ -22,6 +22,9 @@ hassio_api: true
 privileged:
   - NET_ADMIN
   - SYS_ADMIN
+host_network: true
+full_access: true
+apparmor: false
 devices:
   - /dev/net/tun
 map:

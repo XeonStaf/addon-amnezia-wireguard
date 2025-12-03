@@ -38,6 +38,8 @@ declare response_packet_magic_header
 declare transport_packet_magic_header
 declare uload_packet_magic_header
 declare listen_port
+declare first_junk_packet
+
 
 if ! bashio::fs.directory_exists '/ssl/wireguard'; then
     mkdir -p /ssl/wireguard ||
@@ -159,6 +161,7 @@ init_packet_magic_header=$(bashio::config "amnezia.init_packet_magic_header")
 response_packet_magic_header=$(bashio::config "amnezia.response_packet_magic_header")
 transport_packet_magic_header=$(bashio::config "amnezia.transport_packet_magic_header")
 uload_packet_magic_header=$(bashio::config "amnezia.uload_packet_magic_header")
+first_junk_packet=$(bashio::config "amnezia.first_junk_packet")
 
 {
 bashio::var.has_value "${junk_packet_count}" && echo "Jc = ${junk_packet_count}"
@@ -176,6 +179,8 @@ bashio::var.has_value "${transport_packet_magic_header}" && [ ! "${transport_pac
     && echo "H3 = ${transport_packet_magic_header}"
 bashio::var.has_value "${uload_packet_magic_header}" && [ ! "${uload_packet_magic_header}" = "null" ] \
     && echo "H4 = ${uload_packet_magic_header}"
+bashio::var.has_value "${first_junk_packet}" && [ ! "${first_junk_packet}" = "null" ] \
+    && echo "I1 = ${first_junk_packet}"   
 }  >> "${config}"
 
 

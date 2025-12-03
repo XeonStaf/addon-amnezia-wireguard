@@ -13,14 +13,15 @@ SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 ENV PATH="/usr/bin:/sbin:/usr/sbin:${PATH}"
 
 # Build-зависимости
+# Build-зависимости
 RUN apk add --no-cache --virtual .build-dependencies \
       build-base \
       linux-headers \
-      git
+      git \
+      go
 
 # Runtime-зависимости
 RUN apk add --no-cache \
-      go \
       iptables \
       libqrencode-tools \
       openresolv \
@@ -30,6 +31,7 @@ RUN apk add --no-cache \
   && ln -sf /sbin/xtables-nft-multi /sbin/ip6tables \
   && ln -sf /sbin/xtables-nft-multi /sbin/iptables
 
+# Включаем автотулчейн
 ENV GOTOOLCHAIN=auto
 
 # Сборка awg-tools
@@ -42,7 +44,7 @@ RUN git clone --depth=1 --branch $AWG_GO \
       "https://github.com/amnezia-vpn/amneziawg-go.git" /tmp/wireguard \
   && cd /tmp/wireguard && make && make install \
   && rm -rf /tmp/* \
-  && apk del --no-cache --purge .build-dependencies go
+  && apk del --no-cache --purge .build-dependencies
 
 # Копируем rootfs аддона
 COPY rootfs/ /

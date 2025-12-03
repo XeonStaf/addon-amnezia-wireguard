@@ -2,9 +2,9 @@ ARG BUILD_FROM=ghcr.io/hassio-addons/base:17.2.1
 FROM ${BUILD_FROM}
 
 # Amnezia Wireguard Tools version
-ENV AWG_TOOLS=v1.0.20241018
+ENV AWG_TOOLS=v1.0.20250903
 # AmneziaWG-Go version
-ENV AWG_GO=v0.2.12
+ENV AWG_GO=v0.2.16
 
 # Используем bash с pipefail
 SHELL ["/bin/bash", "-o", "pipefail", "-c"]

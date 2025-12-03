@@ -30,6 +30,8 @@ RUN apk add --no-cache \
   && ln -sf /sbin/xtables-nft-multi /sbin/ip6tables \
   && ln -sf /sbin/xtables-nft-multi /sbin/iptables
 
+ENV GOTOOLCHAIN=auto
+
 # Сборка awg-tools
 RUN git clone --depth=1 --branch $AWG_TOOLS \
       "https://github.com/amnezia-vpn/amneziawg-tools.git" /tmp/wg-tools \

@@ -89,5 +89,5 @@ schema:
     response_packet_magic_header: int?
     transport_packet_magic_header: int?
     uload_packet_magic_header: int?
-
+    first_junk_packet: str?   
 
